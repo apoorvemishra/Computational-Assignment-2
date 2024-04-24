@@ -1,0 +1,18 @@
+ GSL functions for solving initial value problems.
+
+1. **`gsl_odeiv2_step_rkf45`**
+   - Algorithm: Runge-Kutta-Fehlberg method of order (4, 5)
+   - API: const gsl_odeiv2_step_type * gsl_odeiv2_step_rkf45;
+   - Description: This function provides an adaptive step-size Runge-Kutta-Fehlberg method for solving ODEs. It's a good choice when the error tolerance needs to be controlled dynamically.
+
+2. **`gsl_odeiv2_step_rk4imp`**
+   - Algorithm: Implicit Runge-Kutta method of order 4
+   - API: const gsl_odeiv2_step_type * gsl_odeiv2_step_rk4imp;
+   - Description: This function implements an implicit Runge-Kutta method of order 4. Implicit methods are useful for stiff ODEs, where the stiffness requires a smaller step size for stability.
+
+3. **`gsl_odeiv2_step_msadams`**
+   - Algorithm: Multi-step Adams method
+   - API: const gsl_odeiv2_step_type * gsl_odeiv2_step_msadams;
+   - Description: This function implements a multi-step Adams method for solving ODEs. It's efficient for non-stiff problems where high accuracy is desired, and the step size can be kept relatively large.
+
+These functions are part of the GSL ODEIV (Ordinary Differential Equation Initial Value) module and provide robust numerical methods for solving various types of ODEs.
