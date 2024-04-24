@@ -4,65 +4,147 @@ from scipy import optimize as opt
 from scipy.integrate import solve_ivp as ivp
 from scipy.integrate import solve_bvp as bvp
 
-#Question 8
-print("Question 8 solutions")
+#Question 9
+print("Question 9 solutions")
 
-def fun1(t,y):
-    return t*np.exp(3*t) - 2*y
-def exact1(t):
-    return np.exp(3*t)*(5*t-1)/25 + np.exp(-2*t)/25
-t1 = [0,1]
-t = np.linspace(0,1,20)
-y1 = [0]
-sol1 = ivp(fun1,t1,y1, t_eval = t)
-plt.plot(t,exact1(t), label = 'Analytical solution')
-plt.plot(sol1.t, sol1.y[0],label = 'Scipy integrate solution' )
+#1st equation
+def ode_system(x, y):
+    dydx = np.zeros((2, x.size))
+    dydx[0] = y[1]  # y[1] = dy/dx
+    dydx[1] = -np.exp(-2*y[0])  # y'' = -exp(-2y)
+    return dydx
+
+def boundary_conditions(ya, yb):
+    # Boundary conditions: y(1) = 0, y(2) = ln(2)
+    return np.array([ya[0], yb[0] - np.log(2)])
+
+# Initial guess for the solution
+x_guess = np.linspace(1, 2, 5)
+y_guess = np.zeros((2, x_guess.size))
+
+# Solve the boundary value problem
+sol = bvp(ode_system, boundary_conditions, x_guess, y_guess)
+
+# Generate points for plotting
+x_plot = np.linspace(1, 2, 100)
+y_plot = sol.sol(x_plot)[0]
+true_solution = lambda x_plot: np.log(x_plot)
+
+# Plot the solution
+plt.plot(x_plot, y_plot, label='Numerical Solution')
+plt.plot(x_plot, true_solution(x_plot), label='Analytical Solution')
+
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Question 9 ODE y\'\' = -exp(-2y) using solve_bvp')
 plt.legend()
-plt.title('Question 8 First function')
+plt.grid(True)
 plt.figure()
 
-def fun2(t,y):
-    return 1 - (t-y)**2
-def exact2(t):
-    return (t*t-3*t+1)/(t-3)
-t2 = [2,2.99]
-t = np.arange(2,3,0.01)
-y2 = [1]
-sol2 = ivp(fun2,t2,y2, t_eval = t)
-plt.plot(t,exact2(t), label = 'Analytical solution')
-plt.plot(sol2.t, sol2.y[0],label = 'Scipy integrate solution')
+
+#2nd equation
+def ode_system(x, y):
+    dydx = np.zeros((2, x.size))
+    dydx[0] = y[1]  # y[1] = dy/dx
+    dydx[1] = y[1] * np.cos(x) - y[0] * np.log(y[0])  # y'' = y'*cos(x) - y*ln(y)
+    return dydx
+
+def boundary_conditions(ya, yb):
+    # Boundary conditions: y(0) = 1, y(pi/2) = e
+    return np.array([ya[0] - 1, yb[0] - np.exp(1)])
+
+# Initial guess for the solution
+x_guess = np.linspace(0, np.pi/2, 10)
+y_guess = np.zeros((2, x_guess.size))
+y_guess[0] = np.linspace(1, np.exp(1), x_guess.size)
+
+# Solve the boundary value problem
+sol = bvp(ode_system, boundary_conditions, x_guess, y_guess)
+
+# Generate points for plotting
+x_plot = np.linspace(0, np.pi/2, 100)
+y_plot = sol.sol(x_plot)[0]
+true_solution = lambda x_plot: np.exp(np.sin(x_plot))
+
+# Plot the solution
+plt.plot(x_plot, y_plot, label='Numerical Solution')
+plt.plot(x_plot, true_solution(x_plot), label='Analytical Solution')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Question 9 ODE y\'\' = y\'*cos(x) - y*ln(y) using solve_bvp')
 plt.legend()
-plt.title('Question 8 Second function')
+plt.grid(True)
 plt.figure()
 
-def fun3(t,y):
-    return 1+y/t
-def exact3(t):
-    return t*(np.log(t) + 2)
-t3 = [1,2]
-t = np.linspace(1,2,20)
-y3 = [2]
-sol3 = ivp(fun3,t3,y3, t_eval = t)
-plt.plot(t,exact3(t), label = 'Analytical solution')
-plt.plot(sol3.t, sol3.y[0],label = 'Scipy integrate solution')
+
+#3rd equation
+def ode_system(x, y):
+    dydx = np.zeros((2, x.size))
+    dydx[0] = y[1]  # y[1] = dy/dx
+    dydx[1] = -(2 * (y[1])**3 + y[0]**2 * y[1]) / np.cos(x)  # y'' = -(2*(y')^3 + y^2*y') / sec(x)
+    return dydx
+
+def boundary_conditions(ya, yb):
+    # Boundary conditions: y(pi/4) = 2**(-1/4), y(pi/3) = 12**0.25 / 2
+    return np.array([ya[0] - 2**(-1/4), yb[0] - (12**0.25) / 2])
+
+# Initial guess for the solution
+x_guess = np.linspace(np.pi/4, np.pi/3, 10)
+y_guess = np.zeros((2, x_guess.size))
+y_guess[0] = np.linspace(2**(-1/4), (12**0.25) / 2, x_guess.size)
+
+# Solve the boundary value problem
+sol =bvp(ode_system, boundary_conditions, x_guess, y_guess)
+
+# Generate points for plotting
+x_plot = np.linspace(np.pi/4, np.pi/3, 100)
+y_plot = sol.sol(x_plot)[0]
+true_solution = lambda x_plot: np.sin(x_plot)**0.5
+
+# Plot the solution
+plt.plot(x_plot, y_plot, label='Numerical Solution')
+plt.plot(x_plot, true_solution(x_plot), label='Analytical Solution')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Question 9 ODE y\'\' = -(2*(y\')^3 + y^2*y\') / sec(x) using solve_bvp')
 plt.legend()
-plt.title('Question 8 Third function')
+plt.grid(True)
 plt.figure()
 
-def fun4(t,y):
-    return np.cos(2*t) + np.sin(3*t)
-def exact4(t):
-    return (1/6)*(-2*np.cos(3*t) + 3*np.sin(2*t) + 8)
-t4 = [0,1]
-t = np.linspace(0,1,20)
-y4 = [1]
-sol4 = ivp(fun4,t4,y4, t_eval = t)
-plt.plot(t,exact4(t), label = 'Analytical solution')
-plt.plot(sol4.t, sol4.y[0],label = 'Scipy integrate solution')
+
+#4th equation
+def ode_system(x, y):
+    dydx = np.zeros((2, x.size))
+    dydx[0] = y[1]  # y[1] = dy/dx
+    dydx[1] = 0.5 - (y[1]**2)/2 - y[0] * np.sin(x)/2  # y'' = 1/2 - (y')^2/2 - y*sin(x)/2
+    return dydx
+
+def boundary_conditions(ya, yb):
+    # Boundary conditions: y(0) = 2, y(pi) = 2
+    return np.array([ya[0] - 2, yb[0] - 2])
+
+# Initial guess for the solution
+x_guess = np.linspace(0, np.pi, 100)
+y_guess = np.zeros((2, x_guess.size))
+
+# Solve the boundary value problem
+sol = bvp(ode_system, boundary_conditions, x_guess, y_guess)
+
+# Generate points for plotting
+x_plot = np.linspace(0, np.pi, 100)
+y_plot = sol.sol(x_plot)[0]
+true_solution = lambda x_plot: 2 + np.sin(x_plot)
+
+# Plot the solution
+plt.plot(x_plot, y_plot, label='Numerical Solution')
+plt.plot(x_plot, true_solution(x_plot), label='Analytical Solution')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Question 9 ODE y\'\' = 1/2 - (y\')^2/2 - y*sin(x)/2 using solve_bvp')
 plt.legend()
-plt.title('Question 8 Fourth function')
+plt.grid(True)
 plt.show()
 
-print('For all four ODE\'s scipy integrate ivp worked but have to include discretization separately')
 
-print('***************************************************\n')
+
+print('***************************************************')
