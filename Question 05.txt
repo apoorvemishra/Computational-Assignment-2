@@ -1,0 +1,16 @@
+“Numerical Fluid Dynamics" by Garrett Birkhoff 
+Here are some of my takes and points that I feel like are out dated.
+
+1. Computational Power: The discussion about the limitations of computational power, especially comparing the capabilities of computers in 1945 to more modern ones, feels outdated. While computational power was a significant constraint in the past, advancements in hardware technology have led to much more powerful computers today. Complex fluid dynamics simulations that were once impractical are now routinely performed.
+
+2. Analytical vs. Numerical Methods: The assertion that numerical methods could only handle a few simple fluid mechanics problems rigorously feels outdated. Numerical methods have advanced significantly, and modern computational fluid dynamics (CFD) techniques are capable of accurately simulating a wide range of fluid flows, including complex turbulent flows and multiphase flows.
+
+3. Predictive Capability: The discussion about the challenges in predicting cloud formations, precipitation, and other weather phenomena using numerical models seems somewhat outdated. While weather prediction remains a challenging task, advances in numerical weather prediction models, coupled with improved observational data assimilation techniques, have led to significant improvements in forecast accuracy over the years.
+
+4. Empirical Modeling: The reliance on empirical correlations and models for describing momentum and heat transfer in two-phase flows appears somewhat outdated. While empirical correlations are still used in engineering practice, there has been a shift towards more physics-based modeling approaches, such as direct numerical simulation (DNS) and large eddy simulation (LES), which aim to capture flow physics more accurately without relying heavily on empirical inputs.
+
+5. Role of Computers: The discussion about the role of computers in making fluid dynamics an exact physical science may feel outdated. While computers have undoubtedly played a crucial role in advancing the field through simulations and data analysis, the understanding of fluid dynamics still heavily relies on theoretical and experimental investigations, with computational results complementing rather than replacing analytical and experimental approaches.
+
+6. Interdisciplinary Collaboration: Fluid dynamics has become increasingly interdisciplinary, with collaborations between mathematicians, physicists, engineers, and computer scientists. Birkhoff's emphasis on fluid dynamics as a mathematical science may overlook the interdisciplinary nature of modern research in the field, which often integrates experimental, computational, and theoretical approaches.
+
+Overall, while Birkhoff's lecture provides valuable historical context and insights into the early development of fluid dynamics as a mathematical science, subsequent progress and advancements have expanded our understanding and capabilities in the field.
