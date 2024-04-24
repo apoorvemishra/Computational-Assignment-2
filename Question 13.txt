@@ -1,0 +1,24 @@
+Algorithm for Sixth-Order Runge-Kutta Method
+
+1. Given initial condition y(t0) = y0 and function f(y, t), specify step size h and endpoint tf.
+
+2. Initialize t = t0 and y = y0.
+
+3. At each step, calculate six intermediate values:
+   
+   k1 = h * f(y, t)
+   k2 = h * f(y + k1/4, t + h/4)
+   k3 = h * f(y + k1/8 + k2/8, t + h/2)
+   k4 = h * f(y - k2/2 + k3, t + 3h/4)
+   k5 = h * f(y + 3k1/16 + 9k4/16, t + h/4)
+   k6 = h * f(y - 3k1/7 + 2k2/7 + 12k3/7 - 12k4/7 + 8k5/7, t + h)
+
+4. Update y using the weighted average of intermediate values:
+   
+   yn+1 = y + k1/90 + 3k3/20 + 3k4/10 + k5/2 + k6/10
+
+5. Update t to t + h.
+
+6. Repeat steps 3-5 until t reaches tf.
+
+Number of evaluations of f per step: 6
